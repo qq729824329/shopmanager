@@ -17,7 +17,7 @@
     </el-header>
     <el-container>
       <el-aside width="200px" class="aside">
-        <el-menu unique-opened default-active="2">
+        <el-menu router unique-opened default-active="2">
           <!-- 1 -->
           <el-submenu index="1">
             <template slot="title">
@@ -25,7 +25,7 @@
               <span>用户管理</span>
             </template>
 
-            <el-menu-item index="1-3">
+            <el-menu-item index="users">
               <i class="el-icon-menu"></i>
               用户列表
             </el-menu-item>
@@ -92,46 +92,44 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
 
 <script>
 export default {
-  beforeCreate() {
+  beforeCreate () {
     if (!localStorage.getItem('token')) {
-      this.$message.warning('请先登录');
+      this.$message.warning('请先登录')
       this.$router.push({
         name: 'login'
       })
     }
   },
   methods: {
-    handleLoginout() {
-      localStorage.clear();
+    handleLoginout () {
+      localStorage.clear()
       this.$router.push({
         name: 'login'
-      });
-      this.$message.success('退出成功');
+      })
+      this.$message.success('退出成功')
     }
-  },
+  }
 }
 </script>
 
 <style>
 .container {
   height: 100%;
-  /* background-color: red; */
 }
 .container .header {
   background-color: #b3c0d1;
 }
-.container .aside {
-  /* background-color: blue; */
-}
 .container .main {
-  /* background-color: pink; */
+  background-color: #e9e0e0;
 }
 .middle {
   text-align: center;
