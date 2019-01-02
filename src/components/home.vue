@@ -11,7 +11,7 @@
           <h2>电 商 管 理 平 台</h2>
         </el-col>
         <el-col :span="1" class="loginout">
-          <a href>退出</a>
+          <a href @click.prevent='handleLoginout()'>退出</a>
         </el-col>
       </el-row>
     </el-header>
@@ -57,11 +57,11 @@
               <i class="el-icon-menu"></i>
               商品列表
             </el-menu-item>
-            <el-menu-item index="1-3">
+            <el-menu-item index="1-4">
               <i class="el-icon-menu"></i>
               分类参数
             </el-menu-item>
-            <el-menu-item index="1-3">
+            <el-menu-item index="1-5">
               <i class="el-icon-menu"></i>
               商品分类
             </el-menu-item>
@@ -98,7 +98,25 @@
 </template>
 
 <script>
-export default {};
+export default {
+  beforeCreate() {
+    if (!localStorage.getItem('token')) {
+      this.$message.warning('请先登录');
+      this.$router.push({
+        name: 'login'
+      })
+    }
+  },
+  methods: {
+    handleLoginout() {
+      localStorage.clear();
+      this.$router.push({
+        name: 'login'
+      });
+      this.$message.success('退出成功');
+    }
+  },
+}
 </script>
 
 <style>

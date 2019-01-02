@@ -27,7 +27,7 @@ export default {
     // 登录请求
     async handleLogin () {
       const res = await this.$http.post('login', this.formData)
-      console.log(res)
+      // console.log(res)
       const {
         data: {
           meta: { msg, status },
@@ -36,7 +36,7 @@ export default {
       } = res
       if (status === 200) {
         localStorage.setItem('token', data.token)
-        this.$message(msg)
+        this.$message.success(msg)
         this.$router.push({
           name: 'home'
         })
