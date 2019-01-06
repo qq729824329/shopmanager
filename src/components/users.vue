@@ -1,11 +1,7 @@
 <template>
   <el-card class="box-card">
     <!-- 面包屑 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-      <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <my-bread level1='用户管理' level2='用户列表'></my-bread>
     <!-- 搜索框+添加按钮 -->
     <el-row>
       <el-col>
@@ -23,7 +19,7 @@
     </el-row>
     <!-- 表格 -->
     <el-table :data="tableData" style="width: 100%" height="398px">
-      <el-table-column prop="id" label="ID" width="80"></el-table-column>
+      <el-table-column prop="id" label="#" width="80"></el-table-column>
       <el-table-column prop="username" label="姓名" width="100"></el-table-column>
       <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
       <el-table-column prop="mobile" label="电话" width="120"></el-table-column>
@@ -174,8 +170,8 @@ export default {
     // 获取用户数据
     async getTableData() {
       // 设置请求头,设置token
-      const AUTH_TOKEN = localStorage.getItem("token");
-      this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+      // const AUTH_TOKEN = localStorage.getItem("token");
+      // this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
           this.pagesize
@@ -327,26 +323,31 @@ export default {
         this.$message.warning(msg);
       }
       // 根据用户id查角色名称
-      const res2 = await this.$http.get(`users/${user.id}`)
+      const res2 = await this.$http.get(`users/${user.id}`);
       // console.log(res2.data)
-      var {meta:{msg, status}, data:{rid}}=res2.data
-      if (status===200) {
-        this.currRoleId = rid
+      var {
+        meta: { msg, status },
+        data: { rid }
+      } = res2.data;
+      if (status === 200) {
+        this.currRoleId = rid;
       } else {
-        this.$message.warning(msg)
+        this.$message.warning(msg);
       }
     },
     // 修改用户角色
     async setRole() {
       const res = await this.$http.put(`users/${this.currUserId}/role`, {
         rid: this.currRoleId
-      })
+      });
       // console.log(res)
-      const {meta:{msg,status}} = res.data
-      if (status===200) {
+      const {
+        meta: { msg, status }
+      } = res.data;
+      if (status === 200) {
         this.dialogFormVisibleState = false;
       } else {
-        this.$message.warning(msg)
+        this.$message.warning(msg);
       }
     }
   }
