@@ -18,7 +18,7 @@
       </el-col>
     </el-row>
     <!-- 表格 -->
-    <el-table :data="tableData" style="width: 100%" height="398px">
+    <el-table v-loading='loading' :data="tableData" style="width: 100%" height="398px">
       <el-table-column prop="id" label="#" width="80"></el-table-column>
       <el-table-column prop="username" label="姓名" width="100"></el-table-column>
       <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
@@ -139,6 +139,7 @@
 export default {
   data() {
     return {
+      loading: false,
       // 表格数据来源
       query: "",
       tableData: [],
@@ -172,6 +173,7 @@ export default {
       // 设置请求头,设置token
       // const AUTH_TOKEN = localStorage.getItem("token");
       // this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+      this.loading = true
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
           this.pagesize
@@ -183,6 +185,7 @@ export default {
         data: { total, users }
       } = res.data;
       if (status === 200) {
+        this.loading = false;
         this.tableData = users;
         // console.log(this.tableData);
 
