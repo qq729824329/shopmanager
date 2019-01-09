@@ -2,17 +2,17 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import ElementUI from 'element-ui'
+import ELEMENT from 'element-ui'
 import Http from '@/plugins/http'
 import MyBread from '@/common/MyBread.vue'
 import moment from 'moment'
-
-import 'element-ui/lib/theme-chalk/index.css'
+// link的src不需要单独配置->在main.js中 把之前引入.css文件的代码删除掉
+// import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/index.css'
 import router from './router'
 
 Vue.use(Http)
-Vue.use(ElementUI)
+Vue.use(ELEMENT)
 
 Vue.config.productionTip = false
 

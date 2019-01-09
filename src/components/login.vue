@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #warp {
   height: 100%;
   background-color: #324152;
